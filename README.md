@@ -24,8 +24,8 @@ Este repositório contém um projeto simples em Django chamado **Interface PI1**
 1. Clone este repositório (ou faça download dos arquivos):
 
    ```bash
-   git clone https://seu-repositorio.git
-   cd seu-repositorio
+   git clone git@github.com:moonshinerd/interface-pi1.git
+   cd interface-pi1
    ```
 2. Crie e ative o ambiente virtual:
 

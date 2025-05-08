@@ -56,6 +56,15 @@ O servidor estará disponível em `http://127.0.0.1:8000/`.
 
 Para parar o servidor, pressione `Ctrl+C`.
 
+## Modelagem BPMN
+
+Abaixo está a modelagem BPMN que representa o fluxo principal do sistema, desde a recepção dos dados até a exibição nos dashboards.
+
+![Diagrama BPMN](docs/assets/bpmn-diagrama.jpg)
+
+O diagrama completo está disponível no diretório `docs/` do projeto.
+
+
 ## Licença
 
 Este projeto está licenciado sob os termos do arquivo `LICENSE`.

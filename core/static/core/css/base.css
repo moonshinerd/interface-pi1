@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.navbar {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding-top: 70px;
+    text-align: center;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}

@@ -22,10 +22,24 @@ header {
 .nav-link {
     color: white;
     text-decoration: none;
+    font-weight: normal; /* ensures default weight is normal */
+    transition: font-weight 0.2s ease; /* optional: smooth transition */
 }
 
 .nav-link:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.nav-link i:hover {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    color: #adadad;
 }
 
 main {
@@ -35,5 +49,6 @@ main {
 
 .nav-link.active {
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration: none;
+    color: #c4c4c4;
 }

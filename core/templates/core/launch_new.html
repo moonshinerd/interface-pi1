@@ -1,6 +1,30 @@
 <!-- core/templates/core/launch_new.html -->
 {% extends "core/base.html" %}
+{% load static %}
+
 {% block title %}Novo Lançamento{% endblock %}
 {% block content %}
     <h1>— Novo Lançamento —</h1>
+
+
+<div class="pressure-container">
+    <h2>Cálculo de Pressão</h2>
+    <div class="form-group">
+      <label for="distance">Selecione a distância alvo:</label>
+      <select id="distance">
+        <option value="10">10 m</option>
+        <option value="20">20 m</option>
+        <option value="30">30 m</option>
+      </select>
+    </div>
+    <button id="calc-btn">Iniciar Cálculo</button>
+
+    <div id="result" class="result-card">
+      <p>Aguardando cálculo...</p>
+    </div>
+  </div>
+
+  <!-- Inclui CSS e JS específicos -->
+  <link rel="stylesheet" href="{% static 'core/css/pressure.css' %}">
+  <script src="{% static 'core/js/pressure.js' %}" defer></script>
 {% endblock %}

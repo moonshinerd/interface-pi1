@@ -1,0 +1,26 @@
+<!-- core/templates/core/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Interface PI1{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="{% static 'core/js/main.js' %}" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="nav-link" id="link-home" title="Início">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="/newlaunch/" class="nav-link" id="link-new">Novo Lançamento</a>
+            <a href="/oldlaunches/" class="nav-link" id="link-old">Histórico de Lançamentos</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

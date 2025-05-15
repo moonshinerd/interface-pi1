@@ -48,18 +48,19 @@
   }
   
   .result-card {
-  border: 1px solid #ffc803;;
+  border: 1px solid #f6f9f7;
   border-radius: 8px;
   padding: 1rem;
   min-height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color #ffc803 0.2s ease;
+  transition: background-color #0fa143 0.2s ease;
 }
 
 .result-card.active {
-  background-color: #ffc803;
+  background-color: #0fa143;
+  color: #f6f9f7;
 }
 
 

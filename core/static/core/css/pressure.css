@@ -6,32 +6,30 @@
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
-  }
+}
   
-  .form-group {
+.form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
+}
   
- #distance {
+#distance {
   position: relative;
   padding: 0.5rem 1.5rem 0.5rem 1rem;
   font-size: 1rem;
   background-color: #f0f8ff;
   color: #333;
-  border: 1px solid #007BFF;
+  border: 1px solid rgba;
   border-radius: 4px;
   appearance: none;
   cursor: pointer;
   background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="%23007BFF" height="10" viewBox="0 0 10 10" width="10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 10,0 5,7"/></svg>');
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
-  background-size: 10px 10px;
-}
+  background-size: 10px 10px;}
 
 
-  
 #calc-btn {
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
@@ -43,11 +41,11 @@
     border-radius: 4px;
 }
   
-  #calc-btn:hover {
+#calc-btn:hover {
     transform: scale(1.02);
   }
   
-  .result-card {
+.result-card {
   border: 1px solid #f6f9f7;
   border-radius: 8px;
   padding: 1rem;
@@ -62,5 +60,6 @@
   background-color: #0fa143;
   color: #f6f9f7;
 }
+
 
 

@@ -14,34 +14,52 @@
     align-items: flex-start;
   }
   
-  #distance {
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
+ #distance {
+  position: relative;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #f0f8ff;
+  color: #333;
+  border: 1px solid #007BFF;
+  border-radius: 4px;
+  appearance: none;
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="%23007BFF" height="10" viewBox="0 0 10 10" width="10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 10,0 5,7"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 10px 10px;
+}
+
+
   
-  #calc-btn {
+#calc-btn {
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
     cursor: pointer;
     transition: transform 0.1s ease;
-  }
+    background-color: #89a09a; 
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+}
   
   #calc-btn:hover {
     transform: scale(1.02);
   }
   
   .result-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    min-height: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-  }
-  
-  .result-card.active {
-    background-color: #f0f8ff;
-  }
-  
+  border: 1px solid #ffc803;;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color #ffc803 0.2s ease;
+}
+
+.result-card.active {
+  background-color: #ffc803;
+}
+
+

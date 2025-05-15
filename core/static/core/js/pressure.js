@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simula o cálculo
     setTimeout(() => {
       const dist = select.value;
-      resultDiv.innerHTML = `<strong>Distância selecionada:</strong> ${dist} m`;
+      resultDiv.innerHTML = `<span style="color:rgb(134, 15, 106);"><strong>Distância selecionada:</strong> ${dist} m</span>`;
       resultDiv.classList.add('active');
 
       // Restaura o botão

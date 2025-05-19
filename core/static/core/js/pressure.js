@@ -11,10 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simula o cálculo
     setTimeout(() => {
       const dist = select.value;
+      resultDiv.style.backgroundColor = '#0fa143';
+      resultDiv.style.color = 'white';
       resultDiv.innerHTML = `<strong>Distância selecionada:</strong> ${dist} m`;
+
       resultDiv.classList.add('active');
 
-      // Restaura o botão
       btn.textContent = 'Iniciar Cálculo';
       btn.disabled = false;
     }, 500);

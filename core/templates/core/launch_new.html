@@ -1,23 +1,35 @@
-<!-- core/templates/core/launch_new.html -->
 {% extends "core/base.html" %}
 {% load static %}
 
 {% block title %}Novo Lançamento{% endblock %}
 {% block content %}
- <h1 style="
+  <h1 style="
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2.5rem;
   color: #3a3a3a;  /* cinza escuro */
   text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;  /* diminuiu */
 ">
   Novo Lançamento
- </h1>
+</h1>
 
-<div class="pressure-container">
-    <h2>Cálculo de Pressão</h2>
+  <div class="pressure-container">
+   <h2 style="
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.8rem;         
+    color: #4d686f;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 0;          /* remove margem superior */
+    margin-bottom: 1rem;
+    font-weight: bold;
+  ">
+    Cálculo de Pressão
+   </h2>
+
     <div class="form-group">
       <label for="distance"><strong>Selecione a distância alvo:</strong></label>
       <select id="distance" style="background-color: #d8d9c0; color: #333; border: 1px solid #d8d9c0; border-radius: 4px; padding: 0.5rem 1rem;">
@@ -25,18 +37,39 @@
         <option value="20">20 m</option>
         <option value="30">30 m</option>
       </select>
-
     </div>
+
+    <!-- Campos fixos e calculados com unidades dentro da caixa -->
+    <div class="form-group">
+    <label><strong>Volume de água (fixo):</strong></label>
+    <input type="text" value="750 mL" disabled style="background-color: #d8d9c0; color: #333; border: 1px solid #d8d9c0; border-radius: 4px; padding: 0.5rem 1rem; min-width: 11rem;" />
+    </div>
+     
+    <div class="form-group">
+    <label><strong>Ângulo de lançamento (fixo):</strong></label>
+    <input type="text" value="45°" disabled style="background-color: #d8d9c0; color: #333; border: 1px solid #d8d9c0; border-radius: 4px; padding: 0.5rem 1rem; min-width: 11rem;" />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 0.4rem;">
+    <label style="margin-bottom: 0.15rem; display: block;"><strong>Pressão recomendada:</strong></label>
+    <input type="text" id="recommended-pressure" disabled style="background-color: #d8d9c0; color: #333; border: 1px solid #d8d9c0; border-radius: 4px; padding: 0.5rem 1rem; min-width: 11rem;" />
+    <p id="pressure-explanation" style="font-style: italic; font-size: 0.9rem; color: #555; margin: 0.1rem 0 0 0;"></p>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 0.4rem;">
+    <label style="margin-bottom: 0.15rem; display: block;"><strong>Ajuste manual da pressão:</strong></label>
+    <input type="text" id="pressure" style="background-color: #d8d9c0; color: #333; border: 1px solid #d8d9c0; border-radius: 4px; padding: 0.5rem 1rem; min-width: 11rem;" />
+    <p id="pressure-error" class="error" style="color: red; margin: 0.1rem 0 0 0;"></p>
+    </div>
+
     <button id="calc-btn" style="background-color: #252326; color: white;">Iniciar Cálculo</button>
 
     <div id="result" class="result-card">
-    <p style="color: #ffc803;"><strong>Aguardando Cálculo...</strong></p>
+      <p style="color: #ffc803;"><strong>Aguardando Cálculo...</strong></p>
     </div>
-  </div>
+    </div>
 
   <!-- Inclui CSS e JS específicos -->
   <link rel="stylesheet" href="{% static 'core/css/pressure.css' %}">
   <script src="{% static 'core/js/pressure.js' %}" defer></script>
 {% endblock %}
-
-

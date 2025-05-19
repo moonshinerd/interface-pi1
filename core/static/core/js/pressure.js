@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       resultDiv.classList.add('active');
 
-      // Restaura o botão
       btn.textContent = 'Iniciar Cálculo';
       btn.disabled = false;
     }, 500);

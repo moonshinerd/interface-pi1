@@ -64,6 +64,13 @@ Abaixo está a modelagem BPMN que representa o fluxo principal do sistema, desde
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 
+## Diagrama de casos de uso 
+
+Abaixo está o diagrama de casos de uso que representa a interação dos atores com o sistema desenvolvido. O diagrama tem como objetivo demonstrar as funcionalidades principais do sistema de controle de lançamentos, incluindo suas integrações com sistema embarcado e banco de dados.
+
+![Diagrama de casos de uso](docs/assets/diagrama_casos_de_uso.jpg)
+
+O diagrama completo está disponível no diretório `docs/` do projeto.
 
 ## Licença
 

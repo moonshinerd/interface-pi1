@@ -69,6 +69,29 @@
     </div>
     </div>
 
+  <div id="customAlert" style="
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 2px solid #0fa143;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+">
+  <p id="customAlertMessage"></p>
+  <button id="customAlertClose">OK</button>
+</div>
+<div id="overlay" style="
+  display: none;
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+"></div>
+
+
   <!-- Inclui CSS e JS específicos -->
   <link rel="stylesheet" href="{% static 'core/css/pressure.css' %}">
   <script src="{% static 'core/js/pressure.js' %}" defer></script>

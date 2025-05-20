@@ -72,7 +72,7 @@ Abaixo está o diagrama de casos de uso que representa a interação dos atores 
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 
-## Modelagem do Banco de Dados (M-ER)
+## Modelagem do Banco de Dados (MER)
 
 Abaixo temos o Modelo Entidade Relacionamento do banco de dados do projeto.
 

@@ -1,0 +1,170 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Home - Interface PI1{% endblock %}
+
+{% block content %}
+<style>
+  /* Seções com cartão branco */
+  .info-section {
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Títulos das seções */
+  .info-section h2 {
+    color: #4ba2fa;
+    border-bottom: 3px solid #28282b;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  /* Listas estilizadas */
+  .info-section ul {
+    list-style-type: disc;
+    margin-left: 2rem;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  /* Parágrafos das seções */
+  .info-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  /* Seção de imagem com alinhamento central */
+  .info-section.image-section {
+    text-align: center;
+  }
+
+  .info-section.image-section img.bpmn {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .info-section.image-section img.bpmn:hover {
+    transform: scale(1.03);
+  }
+
+  .team-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .team-table thead {
+    background-color: #28282b;
+    color: white;
+  }
+
+  .team-table th, .team-table td {
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  .team-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .team-table tbody tr:hover {
+    background-color: #56aff4;
+  }
+
+  .simple-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .simple-table thead {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .simple-table th, .simple-table td {
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  .simple-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .simple-table tbody tr:hover {
+    background-color: #56aff4;
+  }
+</style>
+<section class="info-section">
+  <h2>Visão Geral do Projeto </h2>
+  <p>
+  Este projeto visa desenvolver um sistema embarcado de baixo custo para medição em foguetes d’água, integrado a sensores e plataformas acessíveis como Arduino e NodeMCU, com aplicação prática no ensino de disciplinas STEM. Abrange desde a construção do foguete até a coleta e análise de dados de voo, facilitando o aprendizado de conceitos científicos e de engenharia, além de promover práticas de segurança, trabalho em equipe e documentação técnica, tornando-se uma ferramenta educacional eficiente para escolas e universidades.
+  </p>
+</section>
+
+<section class="info-section">
+  <h2>Modelagens Implementadas</h2>
+  <table class="simple-table">
+    <tbody>
+      <tr><td>Diagrama BPMN</td></tr>
+      <tr><td>Diagrama de Casos de Uso</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="info-section">
+  <h2>Equipe</h2>
+  <table class="team-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Papel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Jamilly Gonçalves</td><td>Gerência, Energia</td></tr>
+      <tr><td>Marcos Goulart</td><td>Subgerência, Estrutura</td></tr>
+      <tr><td>Vitor Schmidt</td><td>Subgerência, Embarcados</td></tr>
+      <tr><td>Caio Pacheco</td><td>Software</td></tr>
+      <tr><td>Carolina Brito</td><td>Software</td></tr>
+      <tr><td>Gabriel Rocha</td><td>Software</td></tr>
+      <tr><td>Gabriel Moraes</td><td>Estrutura</td></tr>
+      <tr><td>Gabriel Santos</td><td>Software</td></tr>
+      <tr><td>Hauedy Soares</td><td>Software</td></tr>
+      <tr><td>Ígor Veras</td><td>Software</td></tr>
+      <tr><td>Jéssica Saraiva</td><td>Software</td></tr>
+      <tr><td>Júlia Freire</td><td>Software</td></tr>
+      <tr><td>Letícia Resende</td><td>Software</td></tr>
+      <tr><td>Lucas Marconi</td><td>Estrutura/Eletrônica</td></tr>
+      <tr><td>Luísa de Souza</td><td>Estrutura/Eletrônica</td></tr>
+      <tr><td>Maria Eduarda Galdino</td><td>Software</td></tr>
+      <tr><td>Nathan Benigno</td><td>Estrutura</td></tr>
+      <tr><td>Pedro Santos</td><td>Software</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="info-section image-section">
+  <h2>Diagrama BPMN do Fluxo Principal</h2>
+  <p>Abaixo está a modelagem BPMN que representa o fluxo principal do sistema, desde a recepção dos dados até a exibição nos dashboards.</p>
+  <img class="bpmn" src="{% static 'assets/bpmn-diagrama.jpg' %}" alt="Diagrama BPMN" />
+   <h2>Diagrama de Casos de Uso</h2>
+   <p>Abaixo está o diagrama de casos de uso que representa a interação dos atores com o sistema desenvolvido. O diagrama tem como objetivo demonstrar as funcionalidades principais do sistema de controle de lançamentos, incluindo suas integrações com sistema embarcado e banco de dados.</p>
+  <img class="bpmn" src="{% static 'assets/diagrama_casos_de_uso.jpg' %}" alt="Diagrama Casos de Uso" />
+</section>
+
+
+
+{% endblock %}

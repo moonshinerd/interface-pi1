@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <h1> Gráfico</h1>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <div id="accel-div">{{ graph_html|safe }}</div>
+{% endblock %}

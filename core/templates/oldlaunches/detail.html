@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Lançamento</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Resumo do Lançamento</h1>
+    <p><strong>ID:</strong> {{ lancamento.id_lancamento }}</p>
+    <p><strong>Início:</strong> {{ lancamento.data_hora_inicio }}</p>
+    <p><strong>Fim:</strong> {{ lancamento.data_hora_fim }}</p>
+
+    <div class="actions">
+        <button>Exportar CSV</button>
+        <button>Exportar PNG</button>
+        <button>Filtrar Intervalo</button>
+        <button>Configurar Dashboard</button>
+    </div>
+
+    <section class="metrics">
+        <div class="card">
+            <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração vs Tempo">
+            <p class="legend">📈 Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular vs Tempo">
+            <p class="legend">🔄 Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+            <p class="legend">🗺️ Plota o caminho percorrido em latitude e longitude, com altitude como cor de fundo.</p>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão & Potência vs Tempo">
+            <p class="legend">⚡ Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW) ao longo do lançamento.</p>
+        </div>
+    </section>
+
+    <h2>Telemetrias</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data/Hora</th>
+                <th>Acel X</th><th>Acel Y</th><th>Acel Z</th>
+                <th>Vel Ang X</th><th>Vel Ang Y</th><th>Vel Ang Z</th>
+                <th>Lat</th><th>Long</th><th>Alt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in telemetrias %}
+            <tr>
+                <td>{{ t.data_hora }}</td>
+                <td>{{ t.aceleracao_x }}</td><td>{{ t.aceleracao_y }}</td><td>{{ t.aceleracao_z }}</td>
+                <td>{{ t.velocidade_angular_x }}</td><td>{{ t.velocidade_angular_y }}</td><td>{{ t.velocidade_angular_z }}</td>
+                <td>{{ t.latitude }}</td><td>{{ t.longitude }}</td><td>{{ t.altitude }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -49,7 +49,11 @@
     <table class="tabela-telemetria">
         <thead>
             <tr>
-                <th>Data/Hora</th>
+                <th>
+                    Data/Hora 
+                    <br>
+                    <span class="subtitulo">DD/MM/YYYY HH:mm:ss.ms</span>
+                </th>
                 <th>Acel X</th><th>Acel Y</th><th>Acel Z</th>
                 <th>Vel Ang X</th><th>Vel Ang Y</th><th>Vel Ang Z</th>
                 <th>Lat (Eixo X)</th><th>Long (Eixo Y)</th><th>Alt (Eixo Z)</th> 
@@ -59,7 +63,11 @@
         <tbody>
             {% for t in telemetrias %}
             <tr>
-                <td>{{ t.data_hora|date:"d/m/Y H:i:s" }}</td>
+                {% with full=t.data_hora|date:"d/m/Y H:i:s.u" %}
+                    <!--full vira algo como "25/05/2025 14:23:45.123456" -->
+                    <td>{{ full|slice:":-3" }}</td>
+                    <!-- isso forma "25/05/2025 14:23:45.123" onde 123 são os milisegundos --> 
+                {% endwith %}
                 <td>{{ t.aceleracao_x }}</td><td>{{ t.aceleracao_y }}</td><td>{{ t.aceleracao_z }}</td>
                 <td>{{ t.vel_angular_x }}</td><td>{{ t.vel_angular_y }}</td><td>{{ t.vel_angular_z }}</td>
                 <td>{{ t.latitude }}</td><td>{{ t.longitude }}</td><td>{{ t.altitude }}</td>

@@ -83,30 +83,6 @@
       font-size: 1.2rem;
     }
 
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: white;
-    }
-
-    .status.sucesso {
-      background-color: #2ecc71;
-    }
-
-    .status.falha {
-      background-color: #e74c3c;
-    }
-
-    .status.pendente {
-      background-color: #f1c40f;
-      color: #333;
-    }
-
     .launch-info {
       margin-top: 1rem;
     }
@@ -179,9 +155,9 @@
         padding: 0.5rem;
       }
     }
-  </style>
-</head>
-<body>
+</style>
+  
+
   <div class="container">
     <h1>— Histórico de Lançamentos —</h1>
 
@@ -189,26 +165,16 @@
     <div class="filters">
       <div class="filter-item">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar por nome...">
-      </div>
-
-      <div class="filter-item">
-        <i class="fas fa-flag-checkered"></i>
-        <select>
-          <option>Status</option>
-          <option>Sucesso</option>
-          <option>Falha</option>
-          <option>Pendente</option>
-        </select>
+        <input type="text" id="searchInput" placeholder="Buscar por nome...">
       </div>
 
       <div class="filter-item">
         <i class="fas fa-sort"></i>
-        <select>
-          <option>Ordenar por</option>
-          <option>Mais recente</option>
-          <option>Mais antigo</option>
-          <option>Maior altitude</option>
+        <select id="sortSelect">
+          <option value="">Ordenar por</option>
+          <option value="mais-recente">Mais recente</option>
+          <option value="mais-antigo">Mais antigo</option>
+          <option value="maior-altura">Maior altitude</option>
         </select>
       </div>
     </div>
@@ -219,52 +185,88 @@
         <tr>
           <th>Lançamentos</th>
           <th>Data/Hora</th>
-          <th>Volume de Água</th>
+          <th>Volume de Água (mL)</th>
           <th>Ângulo</th>
-          <th>Pressão</th>
-          <th>Status</th>
+          <th>Pressão (PSI)</th>
+          <th>Altitude (metros)</th>
           <th>Ação</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Lançamento 1</td>
-          <td>--/--/----</td>
-          <td>--- L</td>
-          <td>---°</td>
-          <td>--- Pa</td>
-          <td><span class="status sucesso"><i class="fas fa-check-circle"></i> Sucesso</span></td>
-          <td><button class="button-details">Detalhes</button></td>
-        </tr>
-        <tr>
-          <td>Lançamento 2</td>
-          <td>--/--/----</td>
-          <td>--- L</td>
-          <td>---°</td>
-          <td>--- Pa</td>
-          <td><span class="status falha"><i class="fas fa-times-circle"></i> Falha</span></td>
-          <td><button class="button-details">Detalhes</button></td>
-        </tr>
-        <tr>
-          <td>Lançamento 3</td>
-          <td>--/--/----</td>
-          <td>--- L</td>
-          <td>---°</td>
-          <td>--- Pa</td>
-          <td><span class="status pendente"><i class="fas fa-hourglass-half"></i> Pendente</span></td>
-          <td><button class="button-details">Detalhes</button></td>
-        </tr>
+        <tbody>
+          {% if lancamentos %}
+            {% for lanc in lancamentos %}
+              <tr data-id="{{ lanc.id_lancamento }}" data-data="{{ lanc.data_hora_inicio|date:'c' }}" data-altura="{{ lanc.distancia_alvo }}">
+                <td>{{ lanc }}</td>
+                <td>{{ lanc.data_hora_inicio|date:"d/m/Y H:i" }}</td>
+                <td>{{ lanc.volume_agua }}</td>
+                <td>{{ lanc.angulo }}</td>
+                <td>{{ lanc.pressao_ajustada }}</td>
+                <td>{{ lanc.distancia_alvo }}</td>
+                <td><button class="button-details">Detalhes</button></td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="7" class="no-launches-state" class="no-launches-state" style="display: none;">Nenhum lançamento encontrado</td>
+            </tr>
+          {% endif %}
       </tbody>
     </table>
 
     <!-- Estado "Carregando" -->
-    <div class="loading-state">Carregando...</div>
+    <!-- <div class="loading-state">Carregando...</div> -->
 
     <!-- Estado "Nenhum lançamento encontrado" -->
-    <div class="no-launches-state">Nenhum lançamento encontrado</div>
+    <div class="no-launches-state" class="no-launches-state" style="display: none;">Nenhum lançamento encontrado</div>
   </div>
-</body>
-</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const sortSelect = document.getElementById('sortSelect');
+  const tableBody = document.querySelector('.launch-table tbody');
+  const allRows = Array.from(tableBody.querySelectorAll('tr')).filter(row => row.dataset.id); // Ignora a linha "Nenhum lançamento"
+
+  function filterAndSort() {
+    const query = searchInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    let filteredRows = allRows.filter(row => {
+      const launchText = row.querySelector('td')?.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") || '';
+      return launchText.includes(query);
+    });
+
+
+    const sortValue = sortSelect.value;
+    filteredRows.sort((a, b) => {
+      if (sortValue === 'mais-recente') {
+        return new Date(b.dataset.data) - new Date(a.dataset.data);
+      }
+      if (sortValue === 'mais-antigo') {
+        return new Date(a.dataset.data) - new Date(b.dataset.data);
+      }
+      if (sortValue === 'maior-altura') {
+        return parseFloat(b.dataset.altura) - parseFloat(a.dataset.altura);
+      }
+      return 0;
+    });
+
+    tableBody.innerHTML = '';
+    filteredRows.forEach(row => tableBody.appendChild(row));
+
+    // Mostra ou esconde mensagem de "nenhum lançamento"
+    const noResultsRow = document.querySelector('.no-launches-state');
+    if (filteredRows.length === 0) {
+      noResultsRow.style.display = 'block';
+    } else {
+      noResultsRow.style.display = 'none';
+    }
+  }
+
+  searchInput.addEventListener('input', filterAndSort);
+  sortSelect.addEventListener('change', filterAndSort);
+});
+</script>
+
     
 {% endblock %}
 

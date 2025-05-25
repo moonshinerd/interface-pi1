@@ -14,3 +14,7 @@ def graficos_teste(request):
         graph_html = to_html(fig, include_plotlyjs=False, full_html=False)
 
     return render(request, "core/graficos_testes.html", {"graph_html": graph_html})
+
+def lista_lancamentos(request):
+    lancamentos = Lancamento.objects.all().order_by('-data_hora_inicio').prefetch_related('telemetrias')
+    return render(request, "core/launch_list.html", {"lancamentos": lancamentos})

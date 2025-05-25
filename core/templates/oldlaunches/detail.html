@@ -1,44 +1,52 @@
+{% extends 'core/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detalhes do Lançamento</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <h1>Resumo do Lançamento</h1>
-    <p><strong>ID:</strong> {{ lancamento.id_lancamento }}</p>
-    <p><strong>Início:</strong> {{ lancamento.data_hora_inicio }}</p>
-    <p><strong>Fim:</strong> {{ lancamento.data_hora_fim }}</p>
 
-    <div class="actions">
-        <button>Exportar CSV</button>
-        <button>Exportar PNG</button>
-        <button>Filtrar Intervalo</button>
-        <button>Configurar Dashboard</button>
+{% block title %}Detalhes do Lançamento{% endblock %}
+
+{% block content %}
+<h1 class="titulo">Resumo do Lançamento</h1>
+<p class="launch-summary">
+    <strong>ID:</strong> {{ lancamento.id_lancamento }} &nbsp;|&nbsp;
+    <strong>Início:</strong> {{ lancamento.data_hora_inicio }} &nbsp;|&nbsp;
+    <strong>Fim:</strong> {{ lancamento.data_hora_fim }}
+</p>
+
+<div class="actions">
+    <button>Exportar CSV</button>
+    <button>Exportar PNG</button>
+    <button>Filtrar Intervalo</button>
+    <button>Configurar Dashboard</button>
+</div>
+
+<section class="card-column">
+    <div class="card">
+        <h3>📈 Aceleração vs Tempo</h3>
+        <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração">
+        <p class="legend">Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
     </div>
 
-    <section class="metrics">
-        <div class="card">
-            <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração vs Tempo">
-            <p class="legend">📈 Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
-        </div>
-        <div class="card">
-            <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular vs Tempo">
-            <p class="legend">🔄 Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
-        </div>
-        <div class="card">
-            <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
-            <p class="legend">🗺️ Plota o caminho percorrido em latitude e longitude, com altitude como cor de fundo.</p>
-        </div>
-        <div class="card">
-            <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão & Potência vs Tempo">
-            <p class="legend">⚡ Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW) ao longo do lançamento.</p>
-        </div>
-    </section>
+    <div class="card">
+        <h3>🔄 Velocidade Angular vs Tempo</h3>
+        <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular">
+        <p class="legend">Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
+    </div>
 
-    <h2>Telemetrias</h2>
-    <table>
+    <div class="card">
+        <h3>⚡ Tensão & Potência vs Tempo</h3>
+        <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão e Potência">
+        <p class="legend">Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).</p>
+    </div>
+</section>
+
+<section class="gps-section">
+    <h3>🗺️ Trajetória GPS</h3>
+    <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+    <p class="legend">Plota o caminho percorrido em latitude e longitude, com altitude como cor de fundo.</p>
+</section>
+
+<h2 class="titulo">📊 Telemetrias</h2>
+<div class="tabela-container">
+    <table class="tabela-telemetria">
         <thead>
             <tr>
                 <th>Data/Hora</th>
@@ -58,5 +66,5 @@
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -12,10 +12,4 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="core/base.html")),
     path('oldlaunches/<int:pk>/', views.detalhe_lancamento, name='oldlaunch-detail'),
     path('graficosteste/', views.graficos_teste, name='graficosteste'),
-     path(
-        'launch-detail/<int:pk>/', TemplateView.as_view(
-            template_name="core/launch-detail"
-        ),
-        name='launch-detail'
-    ),
 ]   

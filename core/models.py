@@ -7,8 +7,7 @@ class Lancamento(models.Model):
 
     volume_agua = models.FloatField(default=750.0, verbose_name="Volume de Água (mL)")
     angulo = models.FloatField(default=45.0, verbose_name="Ângulo (graus)")
-    pressao_recomendada = models.FloatField(default=53.03, verbose_name="Pressão Recomendada (PSI)")
-    pressao_ajustada = models.FloatField(default=53.03, verbose_name="Pressão Ajustada (PSI)")
+    pressao_lancamento = models.FloatField(default=53.03, verbose_name="Pressão Recomendada (PSI)")
 
     DISTANCIA_CHOICES = [
         (10.0, '10 m'),

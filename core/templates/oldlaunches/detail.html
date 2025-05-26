@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Detalhes do Lançamento{% endblock %}
+
+{% block content %}
+<h1 class="titulo">Resumo do Lançamento</h1>
+<p class="launch-summary">
+    <strong>ID:</strong> {{ lancamento.id_lancamento }} &nbsp;|&nbsp;
+    <strong>Início:</strong> {{ lancamento.data_hora_inicio }} &nbsp;|&nbsp;
+    <strong>Fim:</strong> {{ lancamento.data_hora_fim }}
+</p>
+
+<div class="actions">
+    <button>Exportar CSV</button>
+    <button>Exportar PNG</button>
+    <button>Filtrar Intervalo</button>
+    <button>Configurar Dashboard</button>
+</div>
+
+<section class="card-column">
+    <div class="card">
+        <h3>📈 Aceleração vs Tempo</h3>
+        <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração">
+        <p class="legend">Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
+    </div>
+
+    <div class="card">
+        <h3>🔄 Velocidade Angular vs Tempo</h3>
+        <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular">
+        <p class="legend">Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
+    </div>
+
+    <div class="card">
+        <h3>⚡ Tensão & Potência vs Tempo</h3>
+        <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão e Potência">
+        <p class="legend">Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).</p>
+    </div>
+</section>
+
+<section class="gps-section">
+    <h3>🗺️ Trajetória GPS</h3>
+    <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+    <p class="legend">Plota o caminho percorrido em latitude e longitude, com altitude como cor de fundo.</p>
+</section>
+
+<h2 class="titulo">📊 Telemetrias</h2>
+<div class="tabela-container">
+    <table class="tabela-telemetria">
+        <thead>
+            <tr>
+                <th>
+                    Data/Hora 
+                    <br>
+                    <span class="subtitulo">DD/MM/YYYY HH:mm:ss.ms</span>
+                </th>
+                <th>Acel X</th><th>Acel Y</th><th>Acel Z</th>
+                <th>Vel Ang X</th><th>Vel Ang Y</th><th>Vel Ang Z</th>
+                <th>Lat (Eixo X)</th><th>Long (Eixo Y)</th><th>Alt (Eixo Z)</th> 
+                <!-- Esses eixos vão variar a depender da forma como os sensores capturam essas informações -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in telemetrias %}
+            <tr>
+                {% with full=t.data_hora|date:"d/m/Y H:i:s.u" %}
+                    <!--full vira algo como "25/05/2025 14:23:45.123456" -->
+                    <td>{{ full|slice:":-3" }}</td>
+                    <!-- isso forma "25/05/2025 14:23:45.123" onde 123 são os milisegundos --> 
+                {% endwith %}
+                <td>{{ t.aceleracao_x }}</td><td>{{ t.aceleracao_y }}</td><td>{{ t.aceleracao_z }}</td>
+                <td>{{ t.vel_angular_x }}</td><td>{{ t.vel_angular_y }}</td><td>{{ t.vel_angular_z }}</td>
+                <td>{{ t.latitude }}</td><td>{{ t.longitude }}</td><td>{{ t.altitude }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

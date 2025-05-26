@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from plotly.io import to_html
 from .models import Lancamento
 from .utils import criar_figura_aceleracao
@@ -15,6 +15,15 @@ def graficos_teste(request):
 
     return render(request, "core/graficos_testes.html", {"graph_html": graph_html})
 
+def detalhe_lancamento(request, pk):
+    lancamento = get_object_or_404(Lancamento, pk=pk)
+    telemetrias = lancamento.telemetrias.all()
+    return render(request, 'oldlaunches/detail.html', {
+        'lancamento': lancamento,
+        'telemetrias': telemetrias
+    })
+
 def lista_lancamentos(request):
     lancamentos = Lancamento.objects.all().order_by('-data_hora_inicio').prefetch_related('telemetrias')
     return render(request, "core/launch_list.html", {"lancamentos": lancamentos})
+

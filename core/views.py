@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from plotly.io import to_html
 from .models import Lancamento
-from .utils import criar_figura_aceleracao
+from .utils import criar_figura_aceleracao, criar_figura_velocidade_angular
 
 def graficos_teste(request):
     lanc = Lancamento.objects.prefetch_related('telemetrias').first()
@@ -17,13 +17,17 @@ def graficos_teste(request):
 
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
-    telemetrias = lancamento.telemetrias.all()
+    telemetrias = lancamento.telemetrias.order_by('data_hora')
+
+    angvel_fig = criar_figura_velocidade_angular(telemetrias)
+    angvel_html = angvel_fig.to_html(full_html=False, include_plotlyjs='cdn')
+
     return render(request, 'oldlaunches/detail.html', {
         'lancamento': lancamento,
-        'telemetrias': telemetrias
+        'telemetrias': telemetrias,
+        'angvel_plot_html': angvel_html,
     })
 
 def lista_lancamentos(request):
     lancamentos = Lancamento.objects.all().order_by('-data_hora_inicio').prefetch_related('telemetrias')
     return render(request, "core/launch_list.html", {"lancamentos": lancamentos})
-

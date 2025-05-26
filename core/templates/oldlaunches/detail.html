@@ -49,14 +49,16 @@
     <table class="tabela-telemetria">
         <thead>
             <tr>
-                <th>
+                <th style="white-space: nowrap;">
                     Data/Hora 
                     <br>
-                    <span class="subtitulo">DD/MM/YYYY HH:mm:ss.ms</span>
+                    <span class="subtitulo">DD/MM/YYYY<br>HH:mm:ss.ms</span>
                 </th>
-                <th>Acel X</th><th>Acel Y</th><th>Acel Z</th>
-                <th>Vel Ang X</th><th>Vel Ang Y</th><th>Vel Ang Z</th>
-                <th>Lat (Eixo X)</th><th>Long (Eixo Y)</th><th>Alt (Eixo Z)</th> 
+                <th style="white-space: nowrap;">Acel X</th><th style="white-space: nowrap;">Acel Y</th><th style="white-space: nowrap;">Acel Z</th>
+                <th style="white-space: nowrap;">Vel Ang X</th><th style="white-space: nowrap;">Vel Ang Y</th><th style="white-space: nowrap;">Vel Ang Z</th>
+                <th>Lat<br>(Eixo X)</th><th>Long (Eixo Y)</th><th style="white-space: nowrap;">Alt<br>(Eixo Z)</th> 
+                <th>Tensão no Shunt (V)</th><th>Tensão do Barramento (V)</th>
+                <th>Corrente (mA)</th><th>Potência (mW)</th>
                 <!-- Esses eixos vão variar a depender da forma como os sensores capturam essas informações -->
             </tr>
         </thead>
@@ -71,6 +73,8 @@
                 <td>{{ t.aceleracao_x }}</td><td>{{ t.aceleracao_y }}</td><td>{{ t.aceleracao_z }}</td>
                 <td>{{ t.vel_angular_x }}</td><td>{{ t.vel_angular_y }}</td><td>{{ t.vel_angular_z }}</td>
                 <td>{{ t.latitude }}</td><td>{{ t.longitude }}</td><td>{{ t.altitude }}</td>
+                <td>{{ t.shunt_voltage }}</td><td>{{ t.bus_voltage }}</td>
+                <td>{{ t.current_mA }}</td><td>{{ t.power_mW }}</td>
             </tr>
             {% endfor %}
         </tbody>

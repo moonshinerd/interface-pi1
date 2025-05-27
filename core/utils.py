@@ -7,7 +7,7 @@ def criar_figura_aceleracao(times, accel_x):
         y=accel_x,
         mode='lines+markers',
         name='Aceleração X',
-        line=dict(color='#3a5f6f') # define a cor da linha
+        line=dict(color='#3a5f6f') 
     ))
     fig.update_layout(
         xaxis_title='Data/Hora',

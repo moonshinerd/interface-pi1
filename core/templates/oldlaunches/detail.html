@@ -33,10 +33,12 @@
 
     <div class="card">
         <h3>⚡ Tensão & Potência vs Tempo</h3>
-        <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão e Potência">
-        <p class="legend">Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).</p>
+        <div id="vp-div">{{ vp_plot_html|safe }}</div>
+        <p class="legend">
+            Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).
+        </p>
     </div>
-</section>
+
 
 <section class="gps-section">
     <h3>🗺️ Trajetória GPS</h3>

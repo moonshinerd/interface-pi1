@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from plotly.io import to_html
 from .models import Lancamento
-from .utils import criar_figura_aceleracao
+from .utils import criar_figura_aceleracao, criar_figura_tensao_potencia
+
 
 def graficos_teste(request):
     lanc = Lancamento.objects.prefetch_related('telemetrias').first()
@@ -15,13 +16,21 @@ def graficos_teste(request):
 
     return render(request, "core/graficos_testes.html", {"graph_html": graph_html})
 
+    
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
-    telemetrias = lancamento.telemetrias.all()
+    telemetrias = lancamento.telemetrias.order_by('data_hora')
+
+    # Gera o gráfico de tensão & potência
+    fig_vp = criar_figura_tensao_potencia(telemetrias)
+    vp_plot_html = to_html(fig_vp, include_plotlyjs='cdn', full_html=False)
+
     return render(request, 'oldlaunches/detail.html', {
         'lancamento': lancamento,
-        'telemetrias': telemetrias
+        'telemetrias': telemetrias,
+        'vp_plot_html': vp_plot_html,
     })
+    
 
 def lista_lancamentos(request):
     lancamentos = Lancamento.objects.all().order_by('-data_hora_inicio').prefetch_related('telemetrias')

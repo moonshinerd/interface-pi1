@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from plotly.io import to_html
 from .models import Lancamento
-from .utils import criar_figura_aceleracao
+from .utils import criar_figura_aceleracao, criar_figura_gps_3d
 
 def graficos_teste(request):
     lanc = Lancamento.objects.prefetch_related('telemetrias').first()
@@ -18,9 +18,12 @@ def graficos_teste(request):
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
     telemetrias = lancamento.telemetrias.all()
+    fig_3d        = criar_figura_gps_3d(telemetrias)
+    gps_3d_html   = fig_3d.to_html(full_html=False, include_plotlyjs='cdn')
     return render(request, 'oldlaunches/detail.html', {
         'lancamento': lancamento,
-        'telemetrias': telemetrias
+        'telemetrias': telemetrias,
+        'gps_3d_plot_html': gps_3d_html,
     })
 
 def lista_lancamentos(request):

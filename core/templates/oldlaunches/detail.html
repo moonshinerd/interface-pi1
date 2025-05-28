@@ -39,8 +39,8 @@
 </section>
 
 <section class="gps-section">
-    <h3>🗺️ Trajetória GPS</h3>
-    <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+    <div id="gps-3d-div"><h3>🗺️ Trajetória GPS</h3>
+        {{ gps_3d_plot_html|safe }}</div>
     <p class="legend">Plota o caminho percorrido em latitude e longitude</p>
 </section>
 

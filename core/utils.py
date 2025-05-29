@@ -44,7 +44,7 @@ def criar_figura_tensao_potencia(telemetrias) -> go.Figure:
     fig.add_trace(go.Scatter(x=times_ms, y=power,   mode='lines', name='Potência (mW)'))
 
     fig.update_layout(
-        title='Tensão & Potência vs Tempo (ms desde início)',
+        title=f'Tensão & Potência vs Tempo (ms desde início) Lançamento #{telemetrias[0].lancamento.id_lancamento}',
         xaxis_title='Tempo (ms)',
         yaxis_title='Valor',
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)

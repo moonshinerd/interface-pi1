@@ -22,6 +22,16 @@ from .utils import criar_figura_aceleracao_x_tempo
 
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
+    telemetrias = lancamento.telemetrias.order_by('data_hora')
+
+    angvel_fig = criar_figura_velocidade_angular(telemetrias)
+    angvel_html = angvel_fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+    acel_fig = criar_figura_aceleracao_x_tempo(telemetrias)
+    acel_html = acel_fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+    fig_3d        = criar_figura_gps_3d(telemetrias)
+    gps_3d_html   = fig_3d.to_html(full_html=False, include_plotlyjs='cdn')
 
     return render(request, 'oldlaunches/detail.html', {
         'lancamento': lancamento,

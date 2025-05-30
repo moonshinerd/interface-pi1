@@ -16,9 +16,6 @@ def graficos_teste(request):
 
     return render(request, "core/graficos_testes.html", {"graph_html": graph_html})
 
-from django.shortcuts import get_object_or_404, render
-from .models import Lancamento
-from .utils import criar_figura_aceleracao_x_tempo
 
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)

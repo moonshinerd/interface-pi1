@@ -121,8 +121,10 @@ body {
     background-color: #f9f9f9;
 }
 
+
+#accel-div,
 #angvel-div {
     width: 100%;
-    height: 400px; 
+    height: 400px; /* você pode ajustar a altura conforme o layout */
     max-width: 100%;
 }

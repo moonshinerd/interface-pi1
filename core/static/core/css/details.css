@@ -81,6 +81,11 @@ body {
     border-radius: 6px;
 }
 
+.gps-3d-div {
+    width: 100%;
+    height: 400px;
+}
+
 .legend {
     font-size: 0.9rem;
     color: #555;

@@ -41,14 +41,13 @@
 
 
 <section class="card">
-    <div id="gps-3d-div"><h3>🗺️ Trajetória GPS</h3>
-        {{ gps_3d_plot_html|safe }}</div>
+    <h3>🗺️ Trajetória GPS 2D</h3>
+    <div id="gps-map-div">{{ gps_map_plot_html|safe }}</div>
     <p class="legend">Plota o caminho percorrido em latitude e longitude</p>
-</section>
 
-<section class="gps-section 3D">
-    <h3>🗺️ Trajetória GPS 3D</h3>
-    <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+<section class="card">
+    <div id="gps-3d-div"><h3>🗺️ Trajetória GPS 3D</h3>
+        {{ gps_3d_plot_html|safe }}</div>
     <p class="legend">Plota o caminho percorrido em latitude, longitude e altitude num gráfico 3D</p>
 </section>
 

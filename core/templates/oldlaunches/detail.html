@@ -27,7 +27,7 @@
 
     <div class="card">
         <h3>🔄 Velocidade Angular vs Tempo</h3>
-        <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular">
+        <div id="angvel-div">{{ angvel_plot_html|safe }}</div>
         <p class="legend">Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
     </div>
 

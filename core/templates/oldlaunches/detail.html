@@ -21,13 +21,13 @@
 <section class="card-column">
     <div class="card">
         <h3>📈 Aceleração vs Tempo</h3>
-        <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração">
+         <div id="accel-div">{{ acceleration_plot_html|safe }}</div>
         <p class="legend">Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
     </div>
 
     <div class="card">
         <h3>🔄 Velocidade Angular vs Tempo</h3>
-        <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular">
+        <div id="angvel-div">{{ angvel_plot_html|safe }}</div>
         <p class="legend">Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
     </div>
 

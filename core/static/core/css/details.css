@@ -119,9 +119,17 @@ body {
 .tabela-telemetria td {
     padding: 10px 12px;
     text-align: center;
-    border: 1px solid #ccc;      /* reforça a grade */
+    border: 1px solid #ccc;      
 }
 
 .tabela-telemetria tbody tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+
+#accel-div,
+#angvel-div {
+    width: 100%;
+    height: 400px; /* você pode ajustar a altura conforme o layout */
+    max-width: 100%;
 }

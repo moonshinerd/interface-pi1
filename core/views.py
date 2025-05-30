@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from plotly.io import to_html
 from .models import Lancamento
-from .utils import criar_figura_aceleracao, criar_figura_gps_3d
+from .utils import criar_figura_aceleracao_x_tempo, criar_figura_velocidade_angular, criar_figura_gps_3d
+
 
 def graficos_teste(request):
     lanc = Lancamento.objects.prefetch_related('telemetrias').first()
@@ -15,18 +16,21 @@ def graficos_teste(request):
 
     return render(request, "core/graficos_testes.html", {"graph_html": graph_html})
 
+from django.shortcuts import get_object_or_404, render
+from .models import Lancamento
+from .utils import criar_figura_aceleracao_x_tempo
+
 def detalhe_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
-    telemetrias = lancamento.telemetrias.all()
-    fig_3d        = criar_figura_gps_3d(telemetrias)
-    gps_3d_html   = fig_3d.to_html(full_html=False, include_plotlyjs='cdn')
+
     return render(request, 'oldlaunches/detail.html', {
         'lancamento': lancamento,
         'telemetrias': telemetrias,
+        'angvel_plot_html': angvel_html,
+        'acceleration_plot_html': acel_html,
         'gps_3d_plot_html': gps_3d_html,
     })
 
 def lista_lancamentos(request):
     lancamentos = Lancamento.objects.all().order_by('-data_hora_inicio').prefetch_related('telemetrias')
     return render(request, "core/launch_list.html", {"lancamentos": lancamentos})
-

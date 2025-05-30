@@ -21,32 +21,33 @@
 <section class="card-column">
     <div class="card">
         <h3>📈 Aceleração vs Tempo</h3>
-        <img src="{% static 'img/acc-time.png' %}" alt="Gráfico de Aceleração">
+         <div id="accel-div">{{ acceleration_plot_html|safe }}</div>
         <p class="legend">Mostra como as componentes X/Y/Z da aceleração variam ao longo do voo.</p>
     </div>
 
     <div class="card">
         <h3>🔄 Velocidade Angular vs Tempo</h3>
-        <img src="{% static 'img/angvel-time.png' %}" alt="Gráfico de Velocidade Angular">
+        <div id="angvel-div">{{ angvel_plot_html|safe }}</div>
         <p class="legend">Exibe as rotações em torno dos eixos X/Y/Z ao longo do tempo.</p>
     </div>
 
     <div class="card">
         <h3>⚡ Tensão & Potência vs Tempo</h3>
-        <img src="{% static 'img/volt-power.png' %}" alt="Gráfico de Tensão e Potência">
-        <p class="legend">Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).</p>
+        <div id="vp-div">{{ vp_plot_html|safe }}</div>
+        <p class="legend">
+            Compara shunt_voltage, bus_voltage, corrente (mA) e potência (mW).
+        </p>
     </div>
-</section>
+
 
 <section class="gps-section">
     <h3>🗺️ Trajetória GPS</h3>
     <div id="gps-map-div">{{ gps_map_plot_html|safe }}</div>
     <p class="legend">Plota o caminho percorrido em latitude e longitude</p>
-</section>
 
-<section class="gps-section 3D">
-    <h3>🗺️ Trajetória GPS 3D</h3>
-    <img src="{% static 'img/gps-path.png' %}" alt="Gráfico de Trajetória GPS">
+<section class="card">
+    <div id="gps-3d-div"><h3>🗺️ Trajetória GPS</h3>
+        {{ gps_3d_plot_html|safe }}</div>
     <p class="legend">Plota o caminho percorrido em latitude, longitude e altitude num gráfico 3D</p>
 </section>
 

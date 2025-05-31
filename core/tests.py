@@ -163,14 +163,11 @@ class UrlsTest(TestCase):
         from core import views
         from django.views.generic import TemplateView
 
-        # Testa a URL raiz que usa TemplateView
         url = resolve('/')
         self.assertTrue(isinstance(url.func, type(TemplateView.as_view())))
 
-        # Testa a URL de detalhe do lançamento
         url = resolve(f'/oldlaunches/1/')
         self.assertEqual(url.func, views.detalhe_lancamento)
 
-        # Testa a URL de lista de lançamentos
         url = resolve('/oldlaunches/')
         self.assertEqual(url.func, views.lista_lancamentos)

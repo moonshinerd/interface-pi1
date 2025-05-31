@@ -68,3 +68,11 @@ class SystemTest(TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, 'oldlaunches/detail.html')
             self.assertContains(response, str(lancamento.id_lancamento))
+
+    def test_sistema_com_dados_invalidos(self):
+        """Testa o comportamento do sistema com dados inválidos"""
+        response = self.client.get('/oldlaunches/99999/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/oldlaunches/abc/')
+        self.assertEqual(response.status_code, 404)

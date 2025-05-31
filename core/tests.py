@@ -97,7 +97,7 @@ class TelemetriaModelTest(TestCase):
         )
         self.assertIsNone(telemetria.latitude)
         self.assertIsNone(telemetria.longitude)
-        
+
 class UtilsTest(TestCase):
     def setUp(self):
         self.lancamento = Lancamento.objects.create(
@@ -135,3 +135,24 @@ class UtilsTest(TestCase):
         self.assertIsInstance(fig, go.Figure)
         self.assertEqual(len(fig.data), 4)
 
+class ViewsTest(TestCase):
+    def setUp(self):
+        self.lancamento = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now()
+        )
+
+    def test_home_view(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/home.html')
+
+    def test_lancamento_detail_view(self):
+        response = self.client.get(f'/oldlaunches/{self.lancamento.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+
+    def test_telemetria_view(self):
+        response = self.client.get(f'/oldlaunches/{self.lancamento.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')

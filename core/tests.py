@@ -59,3 +59,41 @@ class LancamentoModelTest(TestCase):
         )
         self.assertIn(lancamento.distancia_alvo, [10.0, 20.0, 30.0])
 
+class TelemetriaModelTest(TestCase):
+    def setUp(self):
+        self.lancamento = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now()
+        )
+
+    def test_criar_telemetria_completa(self):
+        telemetria = Telemetria.objects.create(
+            lancamento=self.lancamento,
+            data_hora=timezone.now(),
+            aceleracao_x=1.0,
+            aceleracao_y=2.0,
+            aceleracao_z=3.0,
+            vel_angular_x=4.0,
+            vel_angular_y=5.0,
+            vel_angular_z=6.0,
+            latitude=-23.5505,
+            longitude=-46.6333,
+            altitude=100.0
+        )
+        self.assertIsNotNone(telemetria.pk)
+        self.assertEqual(telemetria.aceleracao_x, 1.0)
+        self.assertEqual(telemetria.latitude, -23.5505)
+
+    def test_telemetria_campos_opcionais(self):
+        telemetria = Telemetria.objects.create(
+            lancamento=self.lancamento,
+            data_hora=timezone.now(),
+            aceleracao_x=1.0,
+            aceleracao_y=2.0,
+            aceleracao_z=3.0,
+            vel_angular_x=4.0,
+            vel_angular_y=5.0,
+            vel_angular_z=6.0
+        )
+        self.assertIsNone(telemetria.latitude)
+        self.assertIsNone(telemetria.longitude)

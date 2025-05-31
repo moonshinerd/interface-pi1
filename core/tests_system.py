@@ -21,3 +21,19 @@ class SystemTest(TestCase):
             pressao_lancamento=53.03,
             distancia_alvo=10.0
         )
+
+    def test_fluxo_completo_sistema(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/home.html')
+
+        response = self.client.get('/oldlaunches/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/launch_list.html')
+        self.assertContains(response, str(self.lancamento))
+
+        response = self.client.get(f'/oldlaunches/{self.lancamento.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+        self.assertContains(response, str(self.lancamento.id_lancamento))
+

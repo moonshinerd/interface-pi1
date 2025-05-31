@@ -64,3 +64,49 @@ class LancamentoTelemetriaIntegrationTest(TestCase):
 
         fig_vel = criar_figura_velocidade_angular(telemetrias_ordenadas)
         self.assertEqual(len(fig_vel.data), 3)
+
+class ViewsIntegrationTest(TestCase):
+    def setUp(self):
+        self.lancamento = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now(),
+            volume_agua=750.0,
+            angulo=45.0,
+            pressao_lancamento=53.03,
+            distancia_alvo=10.0
+        )
+        
+        for i in range(3):
+            Telemetria.objects.create(
+                lancamento=self.lancamento,
+                data_hora=timezone.now(),
+                aceleracao_x=float(i),
+                aceleracao_y=float(i + 1),
+                aceleracao_z=float(i + 2),
+                vel_angular_x=float(i),
+                vel_angular_y=float(i + 1),
+                vel_angular_z=float(i + 2),
+                latitude=-23.5505,
+                longitude=-46.6333,
+                altitude=100.0
+            )
+
+    def test_fluxo_navegacao_completo(self):
+        """Testa o fluxo completo de navegação do usuário"""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/home.html')
+
+        response = self.client.get('/oldlaunches/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/launch_list.html')
+        self.assertContains(response, str(self.lancamento))
+
+        response = self.client.get(f'/oldlaunches/{self.lancamento.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+        self.assertContains(response, str(self.lancamento.id_lancamento))
+
+        response = self.client.get(f'/oldlaunches/{self.lancamento.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')

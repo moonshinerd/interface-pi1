@@ -76,3 +76,32 @@ class SystemTest(TestCase):
 
         response = self.client.get('/oldlaunches/abc/')
         self.assertEqual(response.status_code, 404)
+
+    def test_sistema_com_dados_parciais(self):
+        """Testa o sistema com dados parciais de telemetria"""
+        lancamento_parcial = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now(),
+            volume_agua=750.0,
+            angulo=45.0,
+            pressao_lancamento=53.03,
+            distancia_alvo=10.0
+        )
+
+        Telemetria.objects.create(
+            lancamento=lancamento_parcial,
+            data_hora=timezone.now(),
+            aceleracao_x=1.0,
+            aceleracao_y=2.0,
+            aceleracao_z=3.0,
+            vel_angular_x=0.5,
+            vel_angular_y=1.0,
+            vel_angular_z=1.5,
+            latitude=-23.5505,
+            longitude=-46.6333,
+            altitude=100.0
+        )
+
+        response = self.client.get(f'/oldlaunches/{lancamento_parcial.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')

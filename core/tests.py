@@ -97,3 +97,41 @@ class TelemetriaModelTest(TestCase):
         )
         self.assertIsNone(telemetria.latitude)
         self.assertIsNone(telemetria.longitude)
+        
+class UtilsTest(TestCase):
+    def setUp(self):
+        self.lancamento = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now()
+        )
+        self.telemetrias = [
+            Telemetria.objects.create(
+                lancamento=self.lancamento,
+                data_hora=timezone.now(),
+                aceleracao_x=1.0,
+                aceleracao_y=2.0,
+                aceleracao_z=3.0,
+                vel_angular_x=4.0,
+                vel_angular_y=5.0,
+                vel_angular_z=6.0,
+                latitude=-23.5505,
+                longitude=-46.6333,
+                altitude=100.0
+            )
+        ]
+
+    def test_criar_figura_aceleracao_x_tempo(self):
+        fig = criar_figura_aceleracao_x_tempo(self.telemetrias)
+        self.assertIsInstance(fig, go.Figure)
+        self.assertEqual(len(fig.data), 3)
+
+    def test_criar_figura_gps_3d(self):
+        fig = criar_figura_gps_3d(self.telemetrias)
+        self.assertIsInstance(fig, go.Figure)
+        self.assertEqual(len(fig.data), 1) 
+
+    def test_criar_figura_tensao_potencia(self):
+        fig = criar_figura_tensao_potencia(self.telemetrias)
+        self.assertIsInstance(fig, go.Figure)
+        self.assertEqual(len(fig.data), 4)
+

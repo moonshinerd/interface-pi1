@@ -37,3 +37,34 @@ class SystemTest(TestCase):
         self.assertTemplateUsed(response, 'oldlaunches/detail.html')
         self.assertContains(response, str(self.lancamento.id_lancamento))
 
+    def test_sistema_com_multiplos_lancamentos(self):
+        """Testa o sistema com múltiplos lançamentos e suas interações"""
+        lancamento2 = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now(),
+            volume_agua=800.0,
+            angulo=50.0,
+            pressao_lancamento=55.0,
+            distancia_alvo=12.0
+        )
+        
+        lancamento3 = Lancamento.objects.create(
+            data_hora_inicio=timezone.now(),
+            data_hora_fim=timezone.now(),
+            volume_agua=900.0,
+            angulo=55.0,
+            pressao_lancamento=60.0,
+            distancia_alvo=15.0
+        )
+
+        response = self.client.get('/oldlaunches/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, str(self.lancamento))
+        self.assertContains(response, str(lancamento2))
+        self.assertContains(response, str(lancamento3))
+
+        for lancamento in [self.lancamento, lancamento2, lancamento3]:
+            response = self.client.get(f'/oldlaunches/{lancamento.id_lancamento}/')
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+            self.assertContains(response, str(lancamento.id_lancamento))

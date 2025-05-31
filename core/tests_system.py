@@ -105,3 +105,39 @@ class SystemTest(TestCase):
         response = self.client.get(f'/oldlaunches/{lancamento_parcial.id_lancamento}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+
+    def test_sistema_com_dados_em_tempo_real(self):
+        """Testa o sistema simulando dados em tempo real"""
+        agora = timezone.now()
+        lancamento_tempo_real = Lancamento.objects.create(
+            data_hora_inicio=agora,
+            data_hora_fim=agora,  # Usando a mesma data/hora para simular um lançamento em andamento
+            volume_agua=750.0,
+            angulo=45.0,
+            pressao_lancamento=53.03,
+            distancia_alvo=10.0
+        )
+
+        for i in range(5):
+            Telemetria.objects.create(
+                lancamento=lancamento_tempo_real,
+                data_hora=agora + timezone.timedelta(seconds=i),  # Telemetrias em sequência
+                aceleracao_x=float(i),
+                aceleracao_y=float(i + 1),
+                aceleracao_z=float(i + 2),
+                vel_angular_x=float(i),
+                vel_angular_y=float(i + 1),
+                vel_angular_z=float(i + 2),
+                latitude=-23.5505 + (i * 0.0001),
+                longitude=-46.6333 + (i * 0.0001),
+                altitude=100.0 + i,
+                shunt_voltage=3.3 + i,
+                bus_voltage=5.0 + i,
+                current_mA=100.0 + i,
+                power_mW=500.0 + i
+            )
+
+        response = self.client.get(f'/oldlaunches/{lancamento_tempo_real.id_lancamento}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'oldlaunches/detail.html')
+        self.assertContains(response, str(lancamento_tempo_real.id_lancamento)) 

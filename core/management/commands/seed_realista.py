@@ -70,11 +70,6 @@ class Command(BaseCommand):
                     else:
                         alt = distancia * ((duracao-t)/(duracao/2))
                         spd = (distancia/(duracao/2)) * (duracao-t)
-                    # bateria: tensão cai linear, corrente aumenta
-                    bus_v  = 4.2 - 0.2*(t/duracao)
-                    cur_mA = 100 + 200*(t/duracao)
-                    shunt  = cur_mA * 0.001
-                    pwr    = bus_v * cur_mA
 
                     Telemetria.objects.create(
                         lancamento    = lanc,
@@ -89,10 +84,6 @@ class Command(BaseCommand):
                         longitude     = round(-47.8828 + random.uniform(-0.00005, 0.00005), 6),
                         altitude      = round(max(0, alt), 2),
                         vel_sob_solo  = round(abs(spd), 2),
-                        shunt_voltage = round(shunt, 3),
-                        bus_voltage   = round(bus_v, 2),
-                        current_mA    = round(cur_mA, 1),
-                        power_mW      = round(pwr, 1),
                     )
 
                 self.stdout.write(self.style.SUCCESS(

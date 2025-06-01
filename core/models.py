@@ -36,10 +36,12 @@ class Telemetria(models.Model):
     longitude = models.FloatField(null=True, blank=True)
     altitude = models.FloatField(null=True, blank=True)
     vel_sob_solo = models.FloatField(null=True, blank=True)
-    shunt_voltage = models.FloatField(null=True, blank=True)
-    bus_voltage = models.FloatField(null=True, blank=True)
-    current_mA = models.FloatField(null=True, blank=True)
-    power_mW = models.FloatField(null=True, blank=True)
+    # Professora comentou que esses campos não vão ser mais utilizados
+    # pois não vamos utilizar o medidor de tensão e corrente.
+    # shunt_voltage = models.FloatField(null=True, blank=True)
+    # bus_voltage = models.FloatField(null=True, blank=True)
+    # current_mA = models.FloatField(null=True, blank=True)
+    # power_mW = models.FloatField(null=True, blank=True)
 
     class Meta:
         ordering = ['data_hora']

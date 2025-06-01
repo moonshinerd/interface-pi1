@@ -25,10 +25,10 @@ class TelemetriaAdmin(admin.ModelAdmin):
         'longitude',
         'altitude',
         'vel_sob_solo',
-        'shunt_voltage',
-        'bus_voltage',
-        'current_mA',
-        'power_mW',
+        # 'shunt_voltage',
+        # 'bus_voltage',
+        # 'current_mA',
+        # 'power_mW',
     )
     search_fields = ('lancamento__id_lancamento', 'data_hora')
     list_filter = ('data_hora',)

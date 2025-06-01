@@ -72,6 +72,14 @@ Abaixo está o diagrama de casos de uso que representa a interação dos atores 
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 
+## Diagrama de Transição de Estados 
+
+Abaixo está o diagrama de Transição de Estados que representa como um sistema se comporta ao longo do tempo. O diagrama tem como objetivo demonstrar quais são os estados possíveis e quais eventos fazem o sistema mudar de um estado para outro.
+
+![Diagrama de Transição de Estados](core/static/assets/Pi1TransicaoDeEstados.png)
+
+O diagrama completo está disponível no diretório `docs/` do projeto.
+
 ## Modelagem do Banco de Dados (MER)
 
 Abaixo temos o Modelo Entidade Relacionamento do banco de dados do projeto.

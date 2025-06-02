@@ -100,3 +100,47 @@
   .simple-table tbody tr:hover {
     background-color: #56aff4;
   }
+
+.architecture-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.architecture-blocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.architecture-card {
+  flex: 1 1 300px;
+  min-width: 260px;
+  background: #f7f7fa !important;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.architecture-card h3 {
+  margin-top: 0;
+  color: #4ba2fa;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.architecture-flows {
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.architecture-flows-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #222;
+}

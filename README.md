@@ -80,6 +80,14 @@ Abaixo está o diagrama de Transição de Estados que representa como um sistema
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 
+## Diagrama de Alto Nivel
+
+A arquitetura de alto nível descreve como as diferentes partes do sistema interagem entre si. A representação foi feita a partir modelo BPMN, adaptado para evidenciar os fluxos de dados e responsabilidades entre as cinco camadas da arquitetura: Aplicação, Backend, Serviço (ESP32), HAL Driver e Hardware.
+
+![Diagrama de Transição de Estados](core/static/assets/DiagramaAltoNivel.png)
+
+O diagrama completo está disponível no diretório `docs/` do projeto.
+
 ## Modelagem do Banco de Dados (MER)
 
 Abaixo temos o Modelo Entidade Relacionamento do banco de dados do projeto.

@@ -60,7 +60,7 @@ Para parar o servidor, pressione `Ctrl+C`.
 
 Abaixo está a modelagem BPMN que representa o fluxo principal do sistema, desde a recepção dos dados até a exibição nos dashboards.
 
-![Diagrama BPMN](core/static/assets/bpmn-diagrama.jpg)
+![Diagrama BPMN](core/static/assets/BPMN-atualizado.jpeg)
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 
@@ -68,7 +68,7 @@ O diagrama completo está disponível no diretório `docs/` do projeto.
 
 Abaixo está o diagrama de casos de uso que representa a interação dos atores com o sistema desenvolvido. O diagrama tem como objetivo demonstrar as funcionalidades principais do sistema de controle de lançamentos, incluindo suas integrações com sistema embarcado e banco de dados.
 
-![Diagrama de casos de uso](core/static/assets/diagrama_casos_de_uso.jpg)
+![Diagrama de casos de uso](core/static/assets/DiagramaCasosDeUso-atualizado.jpeg)
 
 O diagrama completo está disponível no diretório `docs/` do projeto.
 

@@ -57,10 +57,83 @@
 <section class="info-section image-section">
   <h2>Diagrama BPMN do Fluxo Principal</h2>
   <p>Abaixo está a modelagem BPMN que representa o fluxo principal do sistema, desde a recepção dos dados até a exibição nos dashboards.</p>
-  <img class="bpmn" src="{% static 'assets/bpmn-diagrama.jpg' %}" alt="Diagrama BPMN" />
+  <img class="bpmn" src="{% static 'assets/BPMN-atualizado.jpeg' %}" alt="Diagrama BPMN" />
    <h2>Diagrama de Casos de Uso</h2>
    <p>Abaixo está o diagrama de casos de uso que representa a interação dos atores com o sistema desenvolvido. O diagrama tem como objetivo demonstrar as funcionalidades principais do sistema de controle de lançamentos, incluindo suas integrações com sistema embarcado e banco de dados.</p>
-  <img class="bpmn" src="{% static 'assets/diagrama_casos_de_uso.jpg' %}" alt="Diagrama Casos de Uso" />
+  <img class="bpmn" src="{% static 'assets/DiagramaCasosDeUso-atualizado.jpeg' %}" alt="Diagrama Casos de Uso" />
+   <h2>Diagrama de Transição de Estados</h2>
+   <p>Abaixo está o diagrama de Transição de Estados que representa como um sistema se comporta ao longo do tempo. O diagrama tem como objetivo demonstrar quais são os estados possíveis e quais eventos fazem o sistema mudar de um estado para outro. </p>
+  <img class="bpmn" src="{% static 'assets/Pi1TransicaoDeEstados.png' %}" alt="Diagrama de Transição de Estados" />
+    <h2>Diagrama de Alto Nivel</h2>
+   <p>A arquitetura de alto nível descreve como as diferentes partes do sistema interagem entre si. A representação foi feita a partir modelo BPMN, adaptado para evidenciar os fluxos de dados e responsabilidades entre as cinco camadas da arquitetura: Aplicação, Backend, Serviço (ESP32), HAL Driver e Hardware. </p>
+  <img class="bpmn" src="{% static 'assets/DiagramaAltoNivel.png' %}" alt="Diagrama de Transição de Estados" />
+
+<div class="architecture-title"><strong>Descrição Detalhada da Arquitetura do Sistema</strong></div>
+<p>
+  A arquitetura do projeto está dividida em cinco camadas principais: <strong>Aplicação</strong>, <strong>Backend</strong>, <strong>Serviço (ESP32)</strong>, <strong>HAL Driver</strong> e <strong>Hardware</strong>. Cada camada tem responsabilidades específicas, mas todas se integram para garantir o funcionamento completo do sistema, desde a leitura dos sensores até o controle e visualização das informações em tempo real.
+</p>
+
+<div class="architecture-blocks">
+  <div class="architecture-card">
+    <h3>Aplicação</h3>
+    <p>
+      <strong>Aquisição de Dados:</strong> coleta as informações enviadas pela Interface Web (vinda do Backend) e disponibiliza essas informações para visualização ou uso posterior.<br>
+      <strong>Gerenciamento de Comunicação:</strong> recebe os dados do Receptor Wi-Fi (do Backend) e também pode encaminhar comandos de volta para o ESP32.<br>
+      <strong>Controle de Lançamento:</strong> toma decisões com base nas informações que chegam do Gerenciamento de Comunicação através do Wi-Fi.<br>
+      <strong>Diagnóstico:</strong> recebe dados do ESP32 sobre funcionamento, tarefas e parâmetros armazenados, alimentando o Controle de Lançamento.<br>
+      <strong>Cálculo de Parâmetros:</strong> calcula métricas como velocidade, altura máxima e tempo de voo com base nos dados dos sensores e disponibiliza os dados para base de dados.
+    </p>
+  </div>
+  <div class="architecture-card">
+    <h3>Backend</h3>
+    <p>
+      <strong>Receptor Wi-Fi:</strong> recebe dados enviados via Wi-Fi pelo ESP32 e os repassa para a Interface Web.<br>
+      <strong>Interface Web:</strong> apresenta dados visualmente e está conectada a Dashboards, SQLite e ORM Django.<br>
+      <strong>Dashboards:</strong> mostram os dados em gráficos e tabelas.<br>
+      <strong>SQLite:</strong> banco de dados local para armazenar os dados recebidos.<br>
+      <strong>ORM Django:</strong> intermedia o acesso ao banco de dados através da Interface Web.
+    </p>
+  </div>
+  <div class="architecture-card">
+    <h3>Serviço (ESP32)</h3>
+    <p>
+      <strong>Sensor GPS:</strong> coleta a localização por UART e disponibiliza ao Backend.<br>
+      <strong>Sensor Altímetro:</strong> mede altitude e envia os dados de forma similar.<br>
+      <strong>Wi-Fi:</strong> principal meio de comunicação com o Backend.<br>
+      <strong>NVS Library:</strong> armazena dados importantes que não podem ser perdidos.<br>
+      <strong>FreeRTOS:</strong> organiza as tarefas internas em tempo real.
+    </p>
+  </div>
+  <div class="architecture-card">
+    <h3>HAL Driver</h3>
+    <p>
+      <strong>Driver NEO-6M GPS Module:</strong> interpreta os sinais do GPS via UART.<br>
+      <strong>Driver Altímetro:</strong> lida com os sinais do sensor de altitude.<br>
+      <strong>Driver Wi-Fi:</strong> gerencia conexões e transmissões sem fio.<br>
+      <strong>Driver Memória Flash:</strong> lida com leitura e gravação de dados persistentes.
+    </p>
+  </div>
+  <div class="architecture-card">
+    <h3>Hardware</h3>
+    <p>
+      <strong>UART:</strong> comunicação serial com o módulo GPS.<br>
+      <strong>Altímetro:</strong> sensor de pressão que permite o cálculo da altitude.<br>
+      <strong>Wi-Fi:</strong> conexão sem fio integrada no ESP32.<br>
+      <strong>Memória Flash:</strong> armazena dados não voláteis.
+    </p>
+  </div>
+</div>
+
+<div class="architecture-flows">
+  <div class="architecture-flows-title">Fluxos de Dados (Resumo)</div>
+  <p>
+    <strong>Fluxo do GPS:</strong> GPS → UART → Driver GPS → Sensor GPS (ESP32) → Aquisição de Dados (Aplicação) → Backend → Interface Web<br>
+    <strong>Fluxo do Altímetro:</strong> Altímetro → Driver Altímetro → Sensor Altímetro (ESP32) → Aquisição de Dados → Backend → Interface Web<br>
+    <strong>Fluxo de Diagnóstico:</strong> FreeRTOS / NVS → Diagnóstico (Aplicação) → Aquisição de dados<br>
+    <strong>Fluxo de Comandos:</strong> Controle de Lançamento → Wi-Fi (ESP32) → Ação no dispositivo
+  </p>
+</div>
+
   <h2>Modelagem do Banco de Dados (M-ER)</h2>
   <p>Abaixo está o modelo entidade-relacionamento (M-ER) que representa a estrutura do banco de dados utilizado no sistema. O M-ER tem como objetivo demonstrar as entidades principais do sistema de controle de lançamentos, incluindo suas integrações com sistema embarcado e dashboard.</p>
   <img class="bpmn" src="{% static 'assets/bd-pi1.png' %}" alt="Diagrama M-ER" />

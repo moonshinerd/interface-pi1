@@ -13,6 +13,93 @@
     <script src="{% static 'core/js/main.js' %}" defer></script>
     <script src="{% static 'core/js/launch_list.js' %}" defer></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .launch-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .launch-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .launch-btn.start {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .launch-btn.start:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        
+        .launch-btn.stop {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .launch-btn.stop:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        
+        .launch-status {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .status-active {
+            background-color: rgba(40, 167, 69, 0.9);
+        }
+        
+        .status-inactive {
+            background-color: rgba(108, 117, 125, 0.9);
+        }
+        
+        .distance-selector {
+            margin-bottom: 10px;
+        }
+        
+        .distance-selector label {
+            color: #000;
+            font-size: 12px;
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        
+        .distance-selector select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: white;
+            font-size: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .distance-selector select:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -27,8 +114,119 @@
             -->
         </nav>
     </header>
+    
+    <!-- Controle de Lançamento -->
+    <div class="launch-control">
+        <div class="launch-status" id="launch-status">
+            Verificando status...
+        </div>
+        
+        <!-- Seletor de Distância -->
+        <div class="distance-selector" id="distance-selector">
+            <label for="distance-target">Distância Objetivo:</label>
+            <select id="distance-target">
+                <option value="10">10 m</option>
+                <option value="20">20 m</option>
+                <option value="30">30 m</option>
+            </select>
+        </div>
+        
+        <button class="launch-btn start" id="btn-start-launch" onclick="iniciarLancamento()">
+            🚀 Iniciar Lançamento
+        </button>
+        <button class="launch-btn stop" id="btn-stop-launch" onclick="finalizarLancamento()" style="display: none;">
+            ⏹️ Finalizar Lançamento
+        </button>
+    </div>
+    
     <main>
         {% block content %}{% endblock %}
     </main>
+    
+    <script>
+        // Verificar status do lançamento
+        function verificarStatus() {
+            fetch('/api/lancamento/status/')
+                .then(response => response.json())
+                .then(data => {
+                    const statusDiv = document.getElementById('launch-status');
+                    const btnStart = document.getElementById('btn-start-launch');
+                    const btnStop = document.getElementById('btn-stop-launch');
+                    const distanceSelector = document.getElementById('distance-selector');
+                    
+                    if (data.ativo) {
+                        statusDiv.innerHTML = `Lançamento ${data.lancamento_id} ativo<br>Telemetrias: ${data.telemetrias_count}`;
+                        statusDiv.className = 'launch-status status-active';
+                        btnStart.style.display = 'none';
+                        btnStop.style.display = 'block';
+                        distanceSelector.style.display = 'none';
+                    } else {
+                        statusDiv.innerHTML = 'Nenhum lançamento ativo';
+                        statusDiv.className = 'launch-status status-inactive';
+                        btnStart.style.display = 'block';
+                        btnStop.style.display = 'none';
+                        distanceSelector.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar status:', error);
+                    document.getElementById('launch-status').innerHTML = 'Erro ao verificar status';
+                });
+        }
+        
+        // Iniciar lançamento
+        function iniciarLancamento() {
+            const distanceTarget = document.getElementById('distance-target').value;
+            fetch('/api/lancamento/iniciar/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ distancia_alvo: parseFloat(distanceTarget) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    verificarStatus();
+                } else {
+                    alert('Erro: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao iniciar lançamento:', error);
+                alert('Erro ao iniciar lançamento');
+            });
+        }
+        
+        // Finalizar lançamento
+        function finalizarLancamento() {
+            if (confirm('Tem certeza que deseja finalizar o lançamento atual?')) {
+                fetch('/api/lancamento/finalizar/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        verificarStatus();
+                    } else {
+                        alert('Erro: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao finalizar lançamento:', error);
+                    alert('Erro ao finalizar lançamento');
+                });
+            }
+        }
+        
+        // Verificar status a cada 5 segundos
+        verificarStatus();
+        setInterval(verificarStatus, 5000);
+    </script>
 </body>
 </html>

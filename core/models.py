@@ -3,7 +3,7 @@ from django.db import models
 class Lancamento(models.Model):
     id_lancamento = models.AutoField(primary_key=True)
     data_hora_inicio = models.DateTimeField()
-    data_hora_fim = models.DateTimeField()
+    data_hora_fim = models.DateTimeField(null=True, blank=True, help_text="Deixe em branco para lançamentos ativos")
 
     volume_agua = models.FloatField(default=750.0, verbose_name="Volume de Água (mL)")
     angulo = models.FloatField(default=45.0, verbose_name="Ângulo (graus)")
@@ -18,6 +18,11 @@ class Lancamento(models.Model):
 
     def __str__(self):
         return f"Lançamento {self.id_lancamento}"
+
+    @property
+    def esta_ativo(self):
+        """Retorna True se o lançamento está ativo (sem data_hora_fim)"""
+        return self.data_hora_fim is None
 
 class Telemetria(models.Model):
     lancamento = models.ForeignKey(

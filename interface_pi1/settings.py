@@ -30,6 +30,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# segundos entre cada polling
+TELEMETRY_POLL_INTERVAL = 1
+
+# URL do ESP32
+ESP32_API_URL = 'http://127.0.0.1:8080/api/telemetria'
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [

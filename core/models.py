@@ -25,23 +25,28 @@ class Telemetria(models.Model):
         on_delete=models.CASCADE,
         related_name='telemetrias'
     )
-    data_hora = models.DateTimeField()
-    aceleracao_x = models.FloatField()
-    aceleracao_y = models.FloatField()
-    aceleracao_z = models.FloatField()
-    vel_angular_x = models.FloatField()
-    vel_angular_y = models.FloatField()
-    vel_angular_z = models.FloatField()
+    data_hora = models.DateTimeField(help_text="Data e hora completa do registro de telemetria")
+
+    # Acelerações (g)
+    aceleracao_x = models.FloatField(verbose_name="Aceleração X (g)")
+    aceleracao_y = models.FloatField(verbose_name="Aceleração Y (g)")
+    aceleracao_z = models.FloatField(verbose_name="Aceleração Z (g)")
+
+    # Velocidades angulares (°/s)
+    vel_angular_x = models.FloatField(verbose_name="Giro X (°/s)")
+    vel_angular_y = models.FloatField(verbose_name="Giro Y (°/s)")
+    vel_angular_z = models.FloatField(verbose_name="Giro Z (°/s)")
+
+    # Temperatura (°C)
+    temperatura = models.FloatField(verbose_name="Temperatura (°C)")
+
+    # Dados de GPS
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     altitude = models.FloatField(null=True, blank=True)
-    vel_sob_solo = models.FloatField(null=True, blank=True)
-    # Professora comentou que esses campos não vão ser mais utilizados
-    # pois não vamos utilizar o medidor de tensão e corrente.
-    # shunt_voltage = models.FloatField(null=True, blank=True)
-    # bus_voltage = models.FloatField(null=True, blank=True)
-    # current_mA = models.FloatField(null=True, blank=True)
-    # power_mW = models.FloatField(null=True, blank=True)
+
+    # Velocidade sobre o solo (km/h)
+    velocidade = models.FloatField(null=True, blank=True, verbose_name="Velocidade (km/h)")
 
     class Meta:
         ordering = ['data_hora']

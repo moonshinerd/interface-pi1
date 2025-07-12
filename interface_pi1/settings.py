@@ -31,10 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 # segundos entre cada polling
-TELEMETRY_POLL_INTERVAL = 1
+TELEMETRY_POLL_INTERVAL = 0.01
 
 # URL do ESP32
-ESP32_API_URL = 'http://127.0.0.1:8080/api/telemetria'
+ESP32_API_URL = '10.62.185.150/api/telemetria'
 
 
 INSTALLED_APPS = [
